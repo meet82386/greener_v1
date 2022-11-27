@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-
+import 'package:greener_v1/Citizen/Profile_Settings.dart';
 class ProfileWidget extends StatelessWidget {
   final String imagePath;
   final VoidCallback onClicked;
@@ -23,7 +23,11 @@ class ProfileWidget extends StatelessWidget {
           Positioned(
             bottom: 0,
             right: 4,
-            child: buildEditIcon(color),
+            child: GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Profile_Settings()));
+                },
+                child: buildEditIcon(color)),
           ),
         ],
       ),

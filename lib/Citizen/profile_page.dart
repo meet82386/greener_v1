@@ -6,7 +6,7 @@ import 'appbar_widget.dart';
 import '../button_widget.dart';
 import 'numbers_widget.dart';
 import 'profile_widget.dart';
-import '../auth_controller.dart';
+import '../controllers/auth_controller.dart';
 
 class ProfilePage extends StatefulWidget {
   @override

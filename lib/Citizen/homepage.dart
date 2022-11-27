@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  String name = "Name Loading...";
+
+  String email = "Email Loading...";
+
+  void getData() async{
+    User? user = await FirebaseAuth.instance.currentUser;
+    var vari = await FirebaseFirestore.instance.collection('users').doc(user?.uid).get();
+    setState((){
+      name = vari.data()!['fname'];
+      email = vari.data()!['email'];
+    });
+  }
+
+  void initState(){
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +58,29 @@ class HomePage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.white.withOpacity(0.5),
+                        spreadRadius: 5,
+                        blurRadius: 7,
+                      ),
+                    ],
+                    color: Colors.green,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  height: 50,
+                  width: width * 0.96,
+                  child: Center(child: Text("Hey, Good Morning $name", style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
+                    color: Colors.white
+                  ),))
+              ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
@@ -46,12 +95,19 @@ class HomePage extends StatelessWidget {
                     color: Colors.green,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  height: height * 0.3,
+                  height: 180,
                   width: width - 16,
-                  child: Column(
+                  child: Row(
+                    children: [
+                      Container(
+                        child: Image(image: AssetImage("img/tree_PNG104381.png")),
+                        width: 150,
+                        height: 150,
+                      ),
+                      Column(
                     children: [
                       SizedBox(
-                        height: height * 0.1,
+                        height: 70,
                       ),
                       Text(
                         "$countTree",
@@ -64,11 +120,13 @@ class HomePage extends StatelessWidget {
                         "Total Planted Trees",
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 25,
+                          fontSize: 24,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                     ],
+                  ),
+                  ],
                   ),
                   // color: Colors.green,
                 ),
@@ -91,16 +149,29 @@ class HomePage extends StatelessWidget {
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        height: height * 0.2,
-                        width: width * 0.6,
+                        height: 100,
+                        width: 220,
                         child: Center(
-                          child: Text(
-                            '21% O2',
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '20.95%',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 25,
                               fontWeight: FontWeight.bold
                             ),
+                          ),
+                          Text(
+                                'Oxygen in Air',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         // color: Colors.green,
@@ -120,16 +191,29 @@ class HomePage extends StatelessWidget {
                           color: Colors.green,
                           borderRadius: BorderRadius.circular(10),
                         ),
-                        height: height * 0.2,
-                        width: width * 0.6,
+                        height: 100,
+                        width: 220,
                         child: Center(
-                          child: Text(
-                              '21% CO2',
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                '0.04%',
                             style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 25,
                               fontWeight: FontWeight.bold
                             ),
+                          ),
+                          Text(
+                                'Carbon Dioxide in Air',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         // color: Colors.green,
@@ -162,18 +246,31 @@ class HomePage extends StatelessWidget {
                   // color: Colors.green,
                 ),
               ),
+               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(
+                    'Our Sponsore',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: Colors.green[900]
+                    ),
+                  ),
+                ],
+              ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
                     Sponsor(
-                        "name", "https://via.placeholder.com/140x100", context),
+                        "Google", "https://play-lh.googleusercontent.com/6UgEjh8Xuts4nwdWzTnWH8QtLuHqRMUB7dp24JYVE2xcYzq4HA8hFfcAbU-R-PC_9uA1", context),
                     Sponsor(
-                        "name", "https://via.placeholder.com/140x100", context),
+                        "Microsoft", "https://play-lh.googleusercontent.com/kHRf85euDvW-Kg7ThXK2vv-J-Yye9uxoo6GQvUcAwudNRz1sQvXubAl_m2bu6KJofA", context),
                     Sponsor(
-                        "name", "https://via.placeholder.com/140x100", context),
+                        "Samsung", "https://new-media.dhakatribune.com/en/uploads/2022/05/17/samsung-logo.jpeg", context),
                     Sponsor(
-                        "name", "https://via.placeholder.com/140x100", context),
+                        "Apple", "https://beebom.com/wp-content/uploads/2021/08/How-to-Type-Apple-Logo-on-iPhone-iPad-and-Mac-1-e1629868886428.jpg?w=750&quality=75", context),
                   ],
                 ),
               ),
@@ -367,8 +464,8 @@ Widget Sponsor(String name, String img, BuildContext context) {
         color: Colors.green,
         borderRadius: BorderRadius.circular(10),
       ),
-      height: height * 0.18,
-      width: width * 0.3,
+      height: 133,
+      width: 120,
       child: Column(
         children: [
           SizedBox(
@@ -383,12 +480,15 @@ Widget Sponsor(String name, String img, BuildContext context) {
                   blurRadius: 7,
                 ),
               ],
-              color: Colors.green,
-              borderRadius: BorderRadius.circular(30),
+             color: Colors.green,
+              borderRadius: BorderRadius.circular(10),
             ),
-            child: CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage("$img"),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10), // Image border
+              child: SizedBox.fromSize(
+                size: Size.fromRadius(40), // Image radius
+                child: Image.network(img, fit: BoxFit.cover),
+              ),
             ),
           ),
           SizedBox(

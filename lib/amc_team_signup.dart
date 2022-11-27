@@ -1,8 +1,9 @@
-import 'package:greener_v1/controllers/auth_controller.dart';
+//import 'package:greener_v1/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'controllers/auth_controller.dart';
 
 class Team_Signup extends StatefulWidget {
   //const Team_Signup({Key? key}) : super(key: key);

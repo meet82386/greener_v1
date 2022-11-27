@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 import 'login_page.dart';
-// import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-// import 'package:animated_splash_screen/animated_splash_screen.dart';
-// import 'package:note_maker/login_page.dart';
-
 class Welcome_Page extends StatefulWidget {
   const Welcome_Page({Key? key}) : super(key: key);
 
@@ -35,26 +31,27 @@ class _Welcome_PageState extends State<Welcome_Page> {
           child: Column(
             children: [
               Container(
-                height: height / 2 - 20,
+                height: height / 1.5 - 20,
                 width: width,
                 color: Colors.green[200],
                 child: Align(
                   alignment: Alignment.bottomCenter,
                   child: Image(
-                    width: 100,
-                    height: 100,
+                    width: 250,
+                    height: 250,
                     image: AssetImage('img/tree_PNG104381.png'),
                   ),
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 15,
               ),
               Container(
-                height: height / 2 - 20,
+                height: height / 2.5 - 40,
                 width: width,
                 color: Colors.green[200],
-                child: Center(
+                child: Align(
+                  alignment: Alignment.topCenter,
                   child: Text(
                     'Welcome to Greener',
                     style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
